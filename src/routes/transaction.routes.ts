@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 
@@ -12,7 +11,9 @@ transactionRouter.get('/', (request, response) => {
     // TODO
     const transaction = transactionsRepository.all();
 
-    return response.json(transaction);
+    const balance = transactionsRepository.getBalance();
+
+    return response.json({ transaction, balance });
   } catch (err) {
     return response.status(400).json({ error: err.message });
   }
